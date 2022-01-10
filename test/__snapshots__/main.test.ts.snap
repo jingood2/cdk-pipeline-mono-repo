@@ -1,0 +1,694 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "GitHubWebhookEndpoint": Object {
+      "Description": "GitHub webhook endpoint URL",
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "HttpApiF5A9A8A7",
+            },
+            ".execute-api.ap-northeast-2.amazonaws.com/jingood2/push",
+          ],
+        ],
+      },
+    },
+    "HttpApiId": Object {
+      "Description": "HTTP API Id",
+      "Value": Object {
+        "Ref": "HttpApiF5A9A8A7",
+      },
+    },
+    "MonoRepoS3ConfigCloudFormationResourceFunctionOutput": Object {
+      "Description": "Role ARN for mono repo cloud formation s3 config function",
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "MonoRepoS3ConfigCloudFormationResourceFunction37E10E88",
+          "Arn",
+        ],
+      },
+    },
+    "MonoRepoS3RoleOut": Object {
+      "Description": "Role ARN for S3 CF resource",
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "MonoRepoS3Role551F4FA9",
+          "Arn",
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "AssetParameters14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717aArtifactHash212124B0": Object {
+      "Description": "Artifact hash for asset \\"14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717a\\"",
+      "Type": "String",
+    },
+    "AssetParameters14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717aS3Bucket2BA619B1": Object {
+      "Description": "S3 bucket for asset \\"14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717a\\"",
+      "Type": "String",
+    },
+    "AssetParameters14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717aS3VersionKey90C5520C": Object {
+      "Description": "S3 key for asset version \\"14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717a\\"",
+      "Type": "String",
+    },
+    "AssetParameters553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fcArtifactHash5C09E098": Object {
+      "Description": "Artifact hash for asset \\"553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fc\\"",
+      "Type": "String",
+    },
+    "AssetParameters553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fcS3Bucket8C557780": Object {
+      "Description": "S3 bucket for asset \\"553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fc\\"",
+      "Type": "String",
+    },
+    "AssetParameters553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fcS3VersionKeyE9A7E575": Object {
+      "Description": "S3 key for asset version \\"553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fc\\"",
+      "Type": "String",
+    },
+    "AssetParametersa93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60ArtifactHash81EBC75F": Object {
+      "Description": "Artifact hash for asset \\"a93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60\\"",
+      "Type": "String",
+    },
+    "AssetParametersa93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60S3Bucket1BFB38AE": Object {
+      "Description": "S3 bucket for asset \\"a93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60\\"",
+      "Type": "String",
+    },
+    "AssetParametersa93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60S3VersionKeyF186C631": Object {
+      "Description": "S3 key for asset version \\"a93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60\\"",
+      "Type": "String",
+    },
+    "ConfigStoragePrefix": Object {
+      "Default": "mono-repo/config",
+      "Description": "S3 Object Prefix",
+      "Type": "String",
+    },
+    "ConfigStorageS3BucketName": Object {
+      "Default": "test-tools-monorepo-configuration",
+      "Description": "S3 bucket name for storage of configuration",
+      "Type": "String",
+    },
+    "GitHubSecret": Object {
+      "Default": "webhooksecret",
+      "Description": "GitHub Webhook HMAC Secret",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "AccessLogD598EBE9": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "LogGroupName": "/aws/api/GitHubIntegrationS3",
+        "RetentionInDays": 1,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ApiGWLogWriterRole70F203A0": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ApiGWLogWriterRoleDefaultPolicy66970765": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams",
+                "logs:PutLogEvents",
+                "logs:GetLogEvents",
+                "logs:FilterLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "AccessLogD598EBE9",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ApiGWLogWriterRoleDefaultPolicy66970765",
+        "Roles": Array [
+          Object {
+            "Ref": "ApiGWLogWriterRole70F203A0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ConfigStorageBucket92E510BE": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketName": Object {
+          "Ref": "ConfigStorageS3BucketName",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "GitHubEventEvalFunction924E71E8": Object {
+      "DependsOn": Array [
+        "GitHubEventEvalFunctionServiceRoleDefaultPolicy2FAAC155",
+        "GitHubEventEvalFunctionServiceRole7F5FC4C8",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersa93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60S3Bucket1BFB38AE",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersa93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60S3VersionKeyF186C631",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersa93f922840e5ec6bd5761cf37fd73a2d197fb92355b674f4a0f861c4cd298c60S3VersionKeyF186C631",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "S3_BUCKET": Object {
+              "Ref": "ConfigStorageS3BucketName",
+            },
+            "S3_PREFIX": Object {
+              "Ref": "ConfigStoragePrefix",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "GitHubEventEvalFunctionServiceRole7F5FC4C8",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.8",
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "GitHubEventEvalFunctionServiceRole7F5FC4C8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "GitHubEventEvalFunctionServiceRoleDefaultPolicy2FAAC155": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "codepipeline:*",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "s3:*",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "ConfigStorageBucket92E510BE",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "GitHubEventEvalFunctionServiceRoleDefaultPolicy2FAAC155",
+        "Roles": Array [
+          Object {
+            "Ref": "GitHubEventEvalFunctionServiceRole7F5FC4C8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "GitHubWebhookFunctionA7279CB5": Object {
+      "DependsOn": Array [
+        "GitHubWebhookFunctionServiceRoleDefaultPolicy4AC25033",
+        "GitHubWebhookFunctionServiceRoleFB95AE13",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fcS3Bucket8C557780",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fcS3VersionKeyE9A7E575",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters553e577b597d0ac5c3108f2d285cb564e73f439b0780ab13c28df7440dbc09fcS3VersionKeyE9A7E575",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "EVAL_FUNCTION_ARN": "",
+            "GITHUB_SECRET": Object {
+              "Ref": "GitHubSecret",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "GitHubWebhookFunctionServiceRoleFB95AE13",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.8",
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "GitHubWebhookFunctionServiceRoleDefaultPolicy4AC25033": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "GitHubEventEvalFunction924E71E8",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "GitHubWebhookFunctionServiceRoleDefaultPolicy4AC25033",
+        "Roles": Array [
+          Object {
+            "Ref": "GitHubWebhookFunctionServiceRoleFB95AE13",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "GitHubWebhookFunctionServiceRoleFB95AE13": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HttpApiDefaultStage3EEB07D6": Object {
+      "Properties": Object {
+        "AccessLogSettings": Object {
+          "DestinationArn": Object {
+            "Fn::GetAtt": Array [
+              "AccessLogD598EBE9",
+              "Arn",
+            ],
+          },
+          "Format": "{\\"requestId\\":\\"$context.requestId\\",\\"userAgent\\":\\"$context.identity.userAgent\\",\\"sourceIp\\":\\"$context.identity.sourceIp\\",\\"requestTime\\":\\"$context.requestTime\\",\\"requestTimeEpoch\\":\\"$context.requestTimeEpoch\\",\\"httpMethod\\":\\"$context.httpMethod\\",\\"path\\":\\"$context.path\\",\\"status\\":\\"$context.status\\",\\"protocol\\":\\"$context.protocol\\",\\"responseLength\\":\\"$context.responseLength\\",\\"domainName\\":\\"$context.domainName\\"}",
+        },
+        "ApiId": Object {
+          "Ref": "HttpApiF5A9A8A7",
+        },
+        "AutoDeploy": true,
+        "StageName": "$default",
+      },
+      "Type": "AWS::ApiGatewayV2::Stage",
+    },
+    "HttpApiF5A9A8A7": Object {
+      "Properties": Object {
+        "Name": "HttpApi",
+        "ProtocolType": "HTTP",
+      },
+      "Type": "AWS::ApiGatewayV2::Api",
+    },
+    "HttpApiPOSTjingood2push149EC4A4": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "HttpApiF5A9A8A7",
+        },
+        "AuthorizationType": "NONE",
+        "RouteKey": "POST /jingood2/push",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "HttpApiPOSTjingood2pushWebhookIntegration93750501",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "HttpApiPOSTjingood2pushWebhookIntegration93750501": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "HttpApiF5A9A8A7",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "GitHubWebhookFunctionA7279CB5",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "HttpApiPOSTjingood2pushWebhookIntegrationPermissionDD8D0DD1": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "GitHubWebhookFunctionA7279CB5",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "HttpApiF5A9A8A7",
+              },
+              "/*/*/jingood2/push",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MonoRepoS3ConfigCloudFormationResourceFunction37E10E88": Object {
+      "DependsOn": Array [
+        "MonoRepoS3RoleDefaultPolicy8038851D",
+        "MonoRepoS3Role551F4FA9",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717aS3Bucket2BA619B1",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717aS3VersionKey90C5520C",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters14906733a7028584bef5a647e873dc1db7b35edd31150612db0b0942b064717aS3VersionKey90C5520C",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "S3_BUCKET": Object {
+              "Ref": "ConfigStorageS3BucketName",
+            },
+            "S3_PREFIX": Object {
+              "Ref": "ConfigStoragePrefix",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "MonoRepoS3Role551F4FA9",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.8",
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "MonoRepoS3Role551F4FA9": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MonoRepoS3RoleDefaultPolicy8038851D": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "events:*",
+                "logs:*",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "CloudWatchAccess",
+            },
+            Object {
+              "Action": "s3:*",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "ConfigStorageBucket92E510BE",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+              "Sid": "S3Access",
+            },
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MonoRepoS3RoleDefaultPolicy8038851D",
+        "Roles": Array [
+          Object {
+            "Ref": "MonoRepoS3Role551F4FA9",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;
